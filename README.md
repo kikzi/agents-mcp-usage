@@ -1,4 +1,4 @@
-# Pydantic AI Evaluations with MCP
+# Model Context Protocol (MCP) Agent Frameworks Demo
 
 This repository demonstrates the usage of a simple Model Context Protocol (MCP) server with several frameworks:
 - Google Agent Development Toolkit (ADK)
