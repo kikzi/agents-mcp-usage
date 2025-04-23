@@ -36,6 +36,67 @@ This project aims to teach:
 
 ![Logfire UI](docs/images/logfire_ui.png)
 
+## MCP Architecture
+
+```mermaid
+graph LR
+    User((User)) --> |"Run script<br>(e.g., pydantic_mcp.py)"| Agent
+
+    subgraph "Agent Frameworks"
+        Agent[Agent]
+        ADK["Google ADK<br>(adk_mcp.py)"]
+        LG["LangGraph<br>(langgraph_mcp.py)"]
+        OAI["OpenAI Agents<br>(oai-agent_mcp.py)"]
+        PYD["Pydantic-AI<br>(pydantic_mcp.py)"]
+        
+        Agent --> ADK
+        Agent --> LG
+        Agent --> OAI
+        Agent --> PYD
+    end
+
+    subgraph "MCP Server"
+        MCP["Model Context Protocol Server<br>(run_server.py)"]
+        Tools["Tools<br>- add(a, b)<br>- get_current_time()"]
+        Resources["Resources<br>- greeting://{name}"]
+        MCP --- Tools
+        MCP --- Resources
+    end
+
+    subgraph "LLM Providers"
+        OAI_LLM["OpenAI Models"]
+        GEM["Google Gemini Models"]
+        OTHER["Other LLM Providers..."]
+    end
+    
+    Logfire[("Logfire<br>Tracing")]
+    
+    ADK --> MCP
+    LG --> MCP
+    OAI --> MCP
+    PYD --> MCP
+    
+    MCP --> OAI_LLM
+    MCP --> GEM
+    MCP --> OTHER
+    
+    ADK --> Logfire
+    LG --> Logfire
+    OAI --> Logfire
+    PYD --> Logfire
+    
+    LLM_Response[("Response")] --> User
+    OAI_LLM --> LLM_Response
+    GEM --> LLM_Response
+    OTHER --> LLM_Response
+
+    style MCP fill:#f9f,stroke:#333,stroke-width:2px
+    style User fill:#bbf,stroke:#338,stroke-width:2px
+    style Logfire fill:#bfb,stroke:#383,stroke-width:2px
+    style LLM_Response fill:#fbb,stroke:#833,stroke-width:2px
+```
+
+The diagram illustrates how MCP serves as a standardised interface between different agent frameworks and LLM providers.The flow shows how users interact with the system by running a specific agent script, which then leverages MCP to communicate with LLM providers, while Logfire provides tracing and observability.
 
 ## Repository Structure
 
