@@ -6,6 +6,9 @@ This repository demonstrates the usage of a simple Model Context Protocol (MCP) 
 - OpenAI Agents
 - Pydantic-AI Agents
 
+Included MCP Server is based on [MCP Python SDK Quickstart](https://github.com/modelcontextprotocol/python-sdk/blob/b4c7db6a50a5c88bae1db5c1f7fba44d16eebc6e/README.md?plain=1#L104)
+- Modified to include a datetime tool and run as a server invoked by Agents
+
 Tracing is done through Pydantic Logfire.
 
 # Quickstart
@@ -34,6 +37,8 @@ This project aims to teach:
   - `langgraph_mcp.py` - Example of using MCP with LangGraph
   - `oai-agent_mcp.py` - Examoke of using MCP with OpenAI Agents
   - `pydantic_mcp.py` - Example of using MCP with Pydantic-AI
+
+- `run_server.py` - Simple MCP server that runs locally implemented in Python
 
 
 ## What is MCP?
