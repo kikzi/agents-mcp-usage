@@ -11,6 +11,8 @@ Included MCP Server is based on [MCP Python SDK Quickstart](https://github.com/m
 
 Tracing is done through Pydantic Logfire.
 
+![MCP Concept](docs/images/mcp_concept.png)
+
 # Quickstart
 
 `cp .env.example .env`
