@@ -18,7 +18,14 @@ Tracing is done through Pydantic Logfire.
   - Individual scripts can be adjusted to use models from any provider supported by the specifi framework
     - By default only [basic_mcp_use/oai-agent_mcp.py](basic_mcp_use/oai-agent_mcp.py) requires `OPENAI_API_KEY`
     - All other scripts require `GEMINI_API_KEY`
-- Add `LOGFIRE_TOKEN` to visualise evaluations in Logfire web ui
+- [Optional] Add `LOGFIRE_TOKEN` to visualise evaluations in Logfire web ui
+
+Run an Agent framework script e.g.:
+- `uv run basic_mcp_use/pydantic_mcp.py` - Requires `GEMINI_API_KEY` by default
+
+- `uv run basic_mcp_use/oai-agent_mcp.py` - Requires `OPENAI_API_KEY` by default
+
+Check console or Logfire for output
 
 ## Project Overview
 
