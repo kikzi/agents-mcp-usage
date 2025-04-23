@@ -54,6 +54,12 @@ The Model Context Protocol allows applications to provide context for LLMs in a 
 
 Learn more: https://modelcontextprotocol.io/introduction
 
+## Why MCP
+
+By defining clear specifications for components like resources (data exposure), prompts (reusable templates), tools (actions), and sampling (completions), MCP simplifies the development process and fosters consistency.
+
+A key advantage highlighted is flexibility; MCP allows developers to more easily switch between different LLM providers without needing to completely overhaul their tool and data integrations. It provides a structured approach, potentially reducing the complexity often associated with custom tool implementations for different models. While frameworks like Google Agent Development Kit, LangGraph, OpenAI Agents, or libraries like PydanticAI facilitate agent building, MCP focuses specifically on standardising the interface between the agent's reasoning (the LLM) and its capabilities (tools and data), aiming to create a more interoperable ecosystem.
+
 ## Setup Instructions
 
 1. Clone this repository
