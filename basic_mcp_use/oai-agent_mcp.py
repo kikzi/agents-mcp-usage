@@ -28,7 +28,7 @@ async def main(query: str = "Greet Andrew and give him the current time") -> Non
             "args": ["run", "run_server.py", "stdio"],
         }
     ) as server:
-        # Initialize the agent with the server
+        # Initialise the agent with the server
         agent = Agent(
             name="MCP agent",
             model="o4-mini",

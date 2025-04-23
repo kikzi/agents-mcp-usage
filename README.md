@@ -68,7 +68,7 @@ Learn more: https://modelcontextprotocol.io/introduction
    OPENAI_API_KEY=your_openai_api_key
    ```
 4. Run any of the sample scripts to see a simple MCP server being used via an Agent framework
-- Google Agent Development Toolkit (ADK)
+- Google Agent Development Kit (ADK)
   - [basic_mcp_use/adk_mcp.py](basic_mcp_use/adk_mcp.py)
 - LangGraph Agents
   - [basic_mcp_use/langgraph_mcp.py](basic_mcp_use/langgraph_mcp.py)

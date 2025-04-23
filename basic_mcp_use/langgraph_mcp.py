@@ -36,7 +36,7 @@ async def main(query: str = "Greet Andrew and give him the current time") -> Non
     """
     async with stdio_client(server) as (read, write):
         async with ClientSession(read, write) as session:
-            # Initialize the connection
+            # Initialise the connection
             await session.initialize()
 
             # Get tools
