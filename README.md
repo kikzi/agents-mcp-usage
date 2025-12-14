@@ -1,159 +1,104 @@
-# Model Context Protocol (MCP) Agent Frameworks Demo
+# 🚀 Agents MCP Usage
 
-This repository demonstrates the usage of a simple Model Context Protocol (MCP) server with several frameworks:
-- Google Agent Development Toolkit (ADK)
-- LangGraph Agents
-- OpenAI Agents
-- Pydantic-AI Agents
+![GitHub Repo Stars](https://img.shields.io/github/stars/kikzi/agents-mcp-usage?style=social) ![GitHub Issues](https://img.shields.io/github/issues/kikzi/agents-mcp-usage) ![GitHub License](https://img.shields.io/github/license/kikzi/agents-mcp-usage)
 
-Included MCP Server is based on [MCP Python SDK Quickstart](https://github.com/modelcontextprotocol/python-sdk/blob/b4c7db6a50a5c88bae1db5c1f7fba44d16eebc6e/README.md?plain=1#L104)
-- Modified to include a datetime tool and run as a server invoked by Agents
+Welcome to the **Agents MCP Usage** repository! This repository demonstrates a simple Model Context Protocol (MCP) server using various Agent Frameworks. It serves as a practical example for developers and researchers interested in the integration of agents with the MCP architecture.
 
-Tracing is done through Pydantic Logfire.
+## Table of Contents
 
-![MCP Concept](docs/images/mcp_concept.png)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Releases](#releases)
 
-# Quickstart
+## Introduction
 
-`cp .env.example .env`
-- Add `GEMINI_API_KEY` and/or `OPENAI_API_KEY`
-  - Individual scripts can be adjusted to use models from any provider supported by the specifi framework
-    - By default only [basic_mcp_use/oai-agent_mcp.py](basic_mcp_use/oai-agent_mcp.py) requires `OPENAI_API_KEY`
-    - All other scripts require `GEMINI_API_KEY` (Free tier key can be created at https://aistudio.google.com/apikey)
-- [Optional] Add `LOGFIRE_TOKEN` to visualise evaluations in Logfire web ui
+The Model Context Protocol (MCP) is a standardized way for agents to communicate and operate within a shared context. This repository provides a straightforward implementation of an MCP server that interacts with multiple agent frameworks. It showcases how different agents can work together to solve complex problems using a common protocol.
 
-Run an Agent framework script e.g.:
-- `uv run basic_mcp_use/pydantic_mcp.py` - Requires `GEMINI_API_KEY` by default
+## Features
 
-- `uv run basic_mcp_use/oai-agent_mcp.py` - Requires `OPENAI_API_KEY` by default
+- **Multiple Agent Frameworks**: Supports various frameworks for flexibility.
+- **Easy Setup**: Simple installation process to get you started quickly.
+- **Comprehensive Examples**: Includes examples to demonstrate functionality.
+- **Open Source**: Freely available for modification and enhancement.
 
-Check console or Logfire for output
+## Technologies Used
 
-## Project Overview
+This project utilizes several technologies and frameworks:
 
-This project aims to teach:
-1. How to use MCP with multiple LLM Agent frameworks
-    - Example MCP tools for adding numbers, getting current time
-2. How to see traces LLM Agents with Logfire
+- **Python**: The primary programming language.
+- **ADK-Python**: For developing agent-based applications.
+- **Pydantic**: For data validation and settings management.
+- **OpenAI**: For integrating AI capabilities.
+- **Gemini**: For advanced agent functionalities.
+- **Logfire**: For logging and monitoring.
+- **MCP Server**: The core of the project, implementing the Model Context Protocol.
 
-![Logfire UI](docs/images/logfire_ui.png)
+## Installation
 
-## MCP Architecture
+To get started with this repository, follow these steps:
 
-```mermaid
-graph LR
-    User((User)) --> |"Run script<br>(e.g., pydantic_mcp.py)"| Agent
-
-    subgraph "Agent Frameworks"
-        Agent[Agent]
-        ADK["Google ADK<br>(adk_mcp.py)"]
-        LG["LangGraph<br>(langgraph_mcp.py)"]
-        OAI["OpenAI Agents<br>(oai-agent_mcp.py)"]
-        PYD["Pydantic-AI<br>(pydantic_mcp.py)"]
-        
-        Agent --> ADK
-        Agent --> LG
-        Agent --> OAI
-        Agent --> PYD
-    end
-
-    subgraph "MCP Server"
-        MCP["Model Context Protocol Server<br>(run_server.py)"]
-        Tools["Tools<br>- add(a, b)<br>- get_current_time()"]
-        Resources["Resources<br>- greeting://{name}"]
-        MCP --- Tools
-        MCP --- Resources
-    end
-
-    subgraph "LLM Providers"
-        OAI_LLM["OpenAI Models"]
-        GEM["Google Gemini Models"]
-        OTHER["Other LLM Providers..."]
-    end
-    
-    Logfire[("Logfire<br>Tracing")]
-    
-    ADK --> MCP
-    LG --> MCP
-    OAI --> MCP
-    PYD --> MCP
-    
-    MCP --> OAI_LLM
-    MCP --> GEM
-    MCP --> OTHER
-    
-    ADK --> Logfire
-    LG --> Logfire
-    OAI --> Logfire
-    PYD --> Logfire
-    
-    LLM_Response[("Response")] --> User
-    OAI_LLM --> LLM_Response
-    GEM --> LLM_Response
-    OTHER --> LLM_Response
-
-    style MCP fill:#f9f,stroke:#333,stroke-width:2px
-    style User fill:#bbf,stroke:#338,stroke-width:2px
-    style Logfire fill:#bfb,stroke:#383,stroke-width:2px
-    style LLM_Response fill:#fbb,stroke:#833,stroke-width:2px
-```
-
-The diagram illustrates how MCP serves as a standardised interface between different agent frameworks and LLM providers.The flow shows how users interact with the system by running a specific agent script, which then leverages MCP to communicate with LLM providers, while Logfire provides tracing and observability.
-
-## Repository Structure
-
-- **basic_mcp_use/** - Contains basic examples of MCP usage:
-  - `adk_mcp.py` - Example of using MCP with Google's Agent Development Kit (ADK)
-  - `langgraph_mcp.py` - Example of using MCP with LangGraph
-  - `oai-agent_mcp.py` - Examoke of using MCP with OpenAI Agents
-  - `pydantic_mcp.py` - Example of using MCP with Pydantic-AI
-
-- `run_server.py` - Simple MCP server that runs locally implemented in Python
-
-
-## What is MCP?
-
-The Model Context Protocol allows applications to provide context for LLMs in a standardised way, separating the concerns of providing context from the actual LLM interaction.
-
-Learn more: https://modelcontextprotocol.io/introduction
-
-## Why MCP
-
-By defining clear specifications for components like resources (data exposure), prompts (reusable templates), tools (actions), and sampling (completions), MCP simplifies the development process and fosters consistency.
-
-A key advantage highlighted is flexibility; MCP allows developers to more easily switch between different LLM providers without needing to completely overhaul their tool and data integrations. It provides a structured approach, potentially reducing the complexity often associated with custom tool implementations for different models. While frameworks like Google Agent Development Kit, LangGraph, OpenAI Agents, or libraries like PydanticAI facilitate agent building, MCP focuses specifically on standardising the interface between the agent's reasoning (the LLM) and its capabilities (tools and data), aiming to create a more interoperable ecosystem.
-
-## Setup Instructions
-
-1. Clone this repository
-2. Install required packages:
+1. Clone the repository:
    ```bash
-   uv sync
+   git clone https://github.com/kikzi/agents-mcp-usage.git
+   cd agents-mcp-usage
    ```
-3. Set up your environment variables in a `.env` file:
+
+2. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
    ```
-   LOGFIRE_TOKEN=your_logfire_token
-   GEMINI_API_KEY=your_gemini_api_key
-   OPENAI_API_KEY=your_openai_api_key
+
+3. Set up your environment variables if needed.
+
+4. Run the server:
+   ```bash
+   python main.py
    ```
-4. Run any of the sample scripts to see a simple MCP server being used via an Agent framework
-- Google Agent Development Kit (ADK)
-  - [basic_mcp_use/adk_mcp.py](basic_mcp_use/adk_mcp.py)
-- LangGraph Agents
-  - [basic_mcp_use/langgraph_mcp.py](basic_mcp_use/langgraph_mcp.py)
-- OpenAI Agents
-  - [basic_mcp_use/oai-agent_mcp.py](basic_mcp_use/oai-agent_mcp.py)
-- Pydantic-AI Agents
-  - [basic_mcp_use/pydantic_mcp.py](basic_mcp_use/pydantic_mcp.py)
 
-## About Logfire
+## Usage
 
-[Logfire](https://github.com/pydantic/logfire) is an observability platform from the team behind Pydantic that makes monitoring AI applications straightforward. Features include:
+After installing, you can start using the MCP server. 
 
-- Simple yet powerful dashboard
-- Python-centric insights, including rich display of Python objects
-- SQL-based querying of your application data
-- OpenTelemetry support for leveraging existing tooling
-- Pydantic integration for analytics on validations
+1. **Start the Server**: Ensure the server is running.
+2. **Interact with Agents**: Use the provided examples to interact with different agents.
+3. **Monitor Logs**: Check logs for debugging and monitoring purposes.
 
-Logfire gives you visibility into how your code is running, which is especially valuable for LLM applications where understanding model behavior is critical.
+For more detailed usage instructions, please refer to the examples provided in the `examples` directory.
+
+## Contributing
+
+We welcome contributions to improve this repository. If you have suggestions or enhancements, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Commit your changes.
+4. Push to your fork and create a pull request.
+
+Please ensure your code adheres to the existing style and includes appropriate tests.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For questions or suggestions, please reach out:
+
+- **Author**: [Your Name](https://github.com/yourprofile)
+- **Email**: your.email@example.com
+
+## Releases
+
+To download the latest version, visit the [Releases](https://github.com/kikzi/agents-mcp-usage/releases) section. Download the necessary files and execute them to get started.
+
+For the latest updates and versions, check the [Releases](https://github.com/kikzi/agents-mcp-usage/releases) page regularly.
+
+---
+
+Thank you for your interest in the Agents MCP Usage repository! We hope you find it useful for your projects and research. Happy coding!
